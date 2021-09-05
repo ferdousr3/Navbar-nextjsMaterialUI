@@ -1,10 +1,12 @@
 import React from 'react';
+// eslint-disable-next-line @next/next/no-document-import-in-page
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 
 
 
 export default class MyDocument extends Document {
+ 
   render() {
     return (
       <Html lang="en">
@@ -17,11 +19,14 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          
         </body>
       </Html>
+       
     );
   }
 }
+
 
 MyDocument.getInitialProps = async (ctx) => {
   const sheets = new ServerStyleSheets();
