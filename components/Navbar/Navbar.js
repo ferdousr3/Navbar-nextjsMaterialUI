@@ -1,15 +1,18 @@
-import { AppBar, Container, IconButton, makeStyles, Menu, MenuItem, Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar, IconButton, makeStyles,  Toolbar, Typography, Drawer,SwipeableDrawer} from "@material-ui/core";
 import NextLink from "next/link";
 import { useState } from "react";
 import { FaBars, FaBattleNet, FaTimes, FaAngleDown } from "react-icons/fa";
 import { Button } from "./Button";
 import Dropdown from "./DropDown";
-// import ActiveLink from "./ActiveLink";
 
 
+
+const drawerWidth = 300;
 const useStyles = makeStyles((theme) => ({
   navbar: {
     backgroundColor: '#203040',
+    height: '65px',
     padding: '0 20px',
     '& a': {
       color: '#ffffff',
@@ -19,10 +22,11 @@ const useStyles = makeStyles((theme) => ({
   mainbar: {
     flexGrow: 1,
   },
-  logo:{
+  logo: {
     width: '50px',
-    height:'50px',
-    margingBottom: '-15px',
+    height: '50px',
+
+    // margingBottom: '-30px',
   },
   sectionDesktop: {
     display: 'none',
@@ -41,13 +45,28 @@ const useStyles = makeStyles((theme) => ({
   },
   nabarItem: {
     listStyle: 'none',
+    marginTop: '8px',
   },
-  mobilemeuDesign:{
-    width:' 300px',
+  mobilemeuDesign: {
     height: 'auto',
+    backgroundColor: '#203040',
+    [ theme.breakpoints.up("md") ]: {
+      display: 'none',
+    },
   },
-  dropdownIcon:{
-    marginTop: '4px',
+  dropdownIcon: {
+    marginTop: '3px',
+  },
+  // drawer
+  drawer: {
+    width: drawerWidth,
+    textAlign: 'center',
+    '& ul': {
+      listStyle: 'none',
+      '& li': {
+        margin: '10px 0px',
+      },
+    },
   },
 
 }));
@@ -57,11 +76,7 @@ const Navbar = () => {
 
   const classes = useStyles();
 
-  const [ click, setClick ] = useState(false);
   const [ dropdown, setDropdown ] = useState(false);
-
-  const handleClick = () => setClick(!click);
-  // const closeMobileMenu = () => setClick(false);
 
   const onMouseEnter = () => {
     if (window.innerWidth < 960) {
@@ -78,60 +93,82 @@ const Navbar = () => {
       setDropdown(false);
     }
   };
-  // mobile menue
-  const [ mobileMenuAnchorEl, setMobileMenuAnchorEl ] = useState(null);
-  const isMobileMenuOpen = Boolean(mobileMenuAnchorEl);
 
+
+  // mobile menu
+  const [ mobileMenu, setMobileMenu ] = useState(null);
 
   const openMobileMenuOpen = (event) => {
-    setMobileMenuAnchorEl(event.currentTarget);
+    setMobileMenu(true);
   };
   const closeMobileMenu = () => {
-    setMobileMenuAnchorEl(null);
+    setMobileMenu(null);
   };
 
-
-
-  const mobileMenu = (
-    <Menu className={classes.mobilemeuDesign} anchorEl={mobileMenuAnchorEl} id="mobile-menu" keepMounted open={isMobileMenuOpen} >
-      <MenuItem onClick={closeMobileMenu} >
-        <NextLink href="/services" >
-          <a href="" > SERVICES </a>
-        </NextLink>
-      </MenuItem>
-      <MenuItem onClick={closeMobileMenu} >
-        <NextLink href="/portfolio" >
-          <a href="" >PORTFOLIO </a>
-        </NextLink>
-      </MenuItem>
-      <MenuItem onClick={closeMobileMenu} >
-        <NextLink href="/team" >
-          <a href="" > OUR TEAM </a>
-        </NextLink>
-      </MenuItem>
-      <MenuItem onClick={closeMobileMenu} >
-        <NextLink href="/aboutus" >
-          <a href="" > ABOUT US </a>
-        </NextLink>
-      </MenuItem>
-      <MenuItem onClick={closeMobileMenu} >
-        <NextLink href="/contact" >
-          <a href="">  CONTACT </a>
-        </NextLink>
-      </MenuItem>
-    </Menu>
-  );
+  const [ drawerOpen, setDraweropen ] = useState(false);
 
 
   return (
     <>
-
-      <AppBar position="sticky" className={classes.navbar} >
+      <SwipeableDrawer style={{ width: 400, }} className={classes.mobilemeuDesign} open={drawerOpen} onClose={() => setDraweropen(false)}>
+        <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', }}>
+          <li className={classes.nabarItem} >
+            <NextLink href="/" >
+              <a  > <FaBattleNet className={classes.logo} /> </a>
+            </NextLink>
+          </li>
+          <IconButton onClick={() => setDraweropen(false)} >
+            <FaTimes />
+          </IconButton>
+        </div>
+        <div className={classes.drawer}>
+          <ul>
+            <li
+              onMouseEnter={onMouseEnter}
+              onMouseLeave={onMouseLeave}
+            >
+              <NextLink
+                href='/services'
+              >
+                <a href=""> SERVICES<FaAngleDown /> </a>
+              </NextLink>
+              {dropdown && <Dropdown />}
+            </li>
+            <li  >
+              <NextLink onClick={() => setDraweropen(false)} href="/portfolio" >
+                <a> PORTFOLIO </a>
+              </NextLink>
+            </li>
+            <li  >
+              <NextLink onClick={() => setDraweropen(false)} href="/team" >
+                <a> OUR TEAM </a>
+              </NextLink>
+            </li>
+            <li  >
+              <NextLink onClick={() => setDraweropen(false)} href="/aboutus" >
+                <a> ABOUT US </a>
+              </NextLink>
+            </li>
+            <li  >
+              <NextLink onClick={() => setDraweropen(false)} href="/contact" >
+                <a> CONTACT </a>
+              </NextLink>
+            </li>
+            <li onClick={() => setDraweropen(false)} >
+              <Button  >
+                SING UP
+              </Button>
+            </li>
+          </ul>
+        </div>
+      </SwipeableDrawer>
+      {/* main app bar */}
+      <AppBar position="fixed" className={classes.navbar} >
         <Toolbar>
           <div className={classes.mainbar} >
             <li className={classes.nabarItem} >
               <NextLink href="/" >
-                <a> <FaBattleNet className={classes.logo}  /> </a>
+                <a  > <FaBattleNet className={classes.logo} /> </a>
               </NextLink>
             </li>
           </div>
@@ -151,7 +188,7 @@ const Navbar = () => {
                 </NextLink>
                 {dropdown && <Dropdown />}
               </li>
-              <li  >
+              <li >
                 <NextLink href="/portfolio" >
                   <a> PORTFOLIO </a>
                 </NextLink>
@@ -179,14 +216,12 @@ const Navbar = () => {
             </ul>
           </div>
           <div className={classes.mobileDesktop}>
-            <IconButton onClick={openMobileMenuOpen}  >
+            <IconButton onClick={() => setDraweropen(true)} >
               <FaBars className={classes.mobilemenu} />
             </IconButton>
           </div>
         </Toolbar>
       </AppBar>
-      {/* mobileMenu */}
-      {mobileMenu}
     </>
   );
 };

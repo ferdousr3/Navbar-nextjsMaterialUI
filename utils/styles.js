@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme) =>({
   },
   main: {
     minHeight: '80vh',
+    marginTop: '100px',
     
   },
   footer: {
