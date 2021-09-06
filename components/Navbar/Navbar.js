@@ -4,7 +4,7 @@ import NextLink from "next/link";
 import { useState } from "react";
 import { FaBars, FaBattleNet, FaTimes, FaAngleDown } from "react-icons/fa";
 import { Button } from "./Button";
-import Dropdown from "./DropDown";
+import Dropdown from "./Dropdown";
 
 
 
@@ -130,9 +130,8 @@ const Navbar = () => {
               <NextLink
                 href='/services'
               >
-                <a href=""> SERVICES<FaAngleDown /> </a>
+                <a > SERVICES</a>
               </NextLink>
-              {dropdown && <Dropdown />}
             </li>
             <li  >
               <NextLink onClick={() => setDraweropen(false)} href="/portfolio" >
@@ -184,7 +183,7 @@ const Navbar = () => {
                   className='nav-links'
                   onClick={closeMobileMenu}
                 >
-                  <a href=""> SERVICES<FaAngleDown className={classes.dropdownIcon} /> </a>
+                  <a > SERVICES<FaAngleDown className={classes.dropdownIcon} /> </a>
                 </NextLink>
                 {dropdown && <Dropdown />}
               </li>
