@@ -18,5 +18,9 @@
   "devDependencies": {
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2"
-  }
+  },
+  "main": "index.js",
+  "repository": "https://github.com/ferdousr3/Navbar-nextjsMaterialUI.git",
+  "author": "ferdousr3 <ferdousr1992@gmail.com>",
+  "license": "MIT"
 }
