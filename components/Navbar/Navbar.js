@@ -1,75 +1,14 @@
 import {
-  AppBar, IconButton, makeStyles,  Toolbar, Typography, Drawer,SwipeableDrawer} from "@material-ui/core";
+  AppBar, IconButton, Toolbar,  Drawer} from "@material-ui/core";
 import NextLink from "next/link";
 import { useState } from "react";
 import { FaBars, FaBattleNet, FaTimes, FaAngleDown } from "react-icons/fa";
 import { Button } from "./Button";
 import Dropdown from "./Dropdown";
+import useStyles from "./NavbarStyle";
 
 
 
-const drawerWidth = 300;
-const useStyles = makeStyles((theme) => ({
-  navbar: {
-    backgroundColor: '#203040',
-    height: '65px',
-    padding: '0 20px',
-    '& a': {
-      color: '#ffffff',
-      margin: '0px 15px',
-    },
-  },
-  mainbar: {
-    flexGrow: 1,
-  },
-  logo: {
-    width: '50px',
-    height: '50px',
-
-    // margingBottom: '-30px',
-  },
-  sectionDesktop: {
-    display: 'none',
-    [ theme.breakpoints.up("md") ]: {
-      display: 'flex',
-    }
-  },
-  mobileDesktop: {
-    display: 'none',
-    [ theme.breakpoints.down("sm") ]: {
-      display: 'flex',
-    },
-  },
-  mobilemenu: {
-    color: "#fff"
-  },
-  nabarItem: {
-    listStyle: 'none',
-    marginTop: '8px',
-  },
-  mobilemeuDesign: {
-    height: 'auto',
-    backgroundColor: '#203040',
-    [ theme.breakpoints.up("md") ]: {
-      display: 'none',
-    },
-  },
-  dropdownIcon: {
-    marginTop: '3px',
-  },
-  // drawer
-  drawer: {
-    width: drawerWidth,
-    textAlign: 'center',
-    '& ul': {
-      listStyle: 'none',
-      '& li': {
-        margin: '10px 0px',
-      },
-    },
-  },
-
-}));
 
 
 const Navbar = () => {
@@ -110,7 +49,7 @@ const Navbar = () => {
 
   return (
     <>
-      <SwipeableDrawer style={{ width: 400, }} className={classes.mobilemeuDesign} open={drawerOpen} onClose={() => setDraweropen(false)}>
+      <Drawer style={{ width: 400, }} className={classes.mobilemeuDesign} open={drawerOpen} onClose={() => setDraweropen(false)}>
         <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px', }}>
           <li className={classes.nabarItem} >
             <NextLink href="/" >
@@ -160,7 +99,7 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-      </SwipeableDrawer>
+      </Drawer>
       {/* main app bar */}
       <AppBar position="fixed" className={classes.navbar} >
         <Toolbar>
